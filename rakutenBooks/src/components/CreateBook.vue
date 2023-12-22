@@ -1,28 +1,19 @@
 <template>
   <v-card class="ma-2 pa-2">
-    <h3>本の登録</h3>
+    <h3 class="title-h3">本の登録</h3>
     <!-- <p>{{ title }}</p> -->
-    <div>
-      <label for="title">タイトル：</label>
-      <input type="text" id="title" v-model="title" />
-    </div>
 
-    <div>
-      <label for="author">著者：</label>
-      <input type="text" id="author" v-model="author" />
-    </div>
+    <v-form ref="form" v-model="valid" lazy-validation>
+      <v-text-field v-model="title" label="タイトル"> </v-text-field>
+      <v-text-field v-model="author" label="著者"></v-text-field>
+      <v-text-field v-model="price" label="価格"></v-text-field>
+      <v-text-field v-model="caption" label="キャプション"></v-text-field>
 
-    <div>
-      <label for="price">値段：</label>
-      <input type="text" id="price" v-model="price" />
-    </div>
+      <v-btn v-on:click="doSubmit">送信</v-btn>
 
-    <div>
-      <label for="caption">キャプション：</label>
-      <input type="text" id="caption" v-model="caption" />
-    </div>
-
-    <button v-on:click="doSubmit">送信</button>
+      <br />
+      <p class="successText" v-if="flagOK">送信成功！</p>
+    </v-form>
   </v-card>
 
   <!-- この方法もあり（/api/books宛にformで入力された値（postリクエスト）を送る） -->
@@ -43,12 +34,13 @@ export default {
       author: "",
       price: "",
       caption: "",
+      flagOK: false,
     };
   },
 
   methods: {
     async doSubmit() {
-    //   console.log(this.title, this.price);
+      //   console.log(this.title, this.price);
       const data = {
         title: this.title,
         author: this.author,
@@ -65,16 +57,30 @@ export default {
       });
 
       console.log(response);
+      this.flagOK = !this.flagOK;
     },
   },
 };
 </script>
 
 <style>
-input,
+.title-h3 {
+  padding: 30px 30px 0px 30px;
+  color: #182651;
+}
+
+form {
+  margin: 30px;
+}
+
 button {
-  border: solid 1px #999;
-  padding: 5px;
-  margin-bottom: 10px;
+  color: #182651 !important;
+}
+
+.successText {
+  font-size: 30px;
+  font-weight: bold;
+  color: #182651;
+  margin-top: 30px;
 }
 </style>

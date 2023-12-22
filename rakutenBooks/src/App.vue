@@ -1,13 +1,29 @@
 <template>
   <v-app id="inspire">
     <v-main class="bg-grey-lighten-2">
-      <v-container>
-        <CreateBook />
-      </v-container>
+      <div class="router">
+        <div class="inner">
+          <!-- aタグのリンクの代わり -->
+          <v-btn>
+            <router-link to="/">Home</router-link>
+          </v-btn>
 
-      <v-container>
+          <v-btn>
+            <router-link to="/add">Add</router-link>
+          </v-btn>
+        </div>
+      </div>
+
+      <!-- /router/index.jsで書いたcomponentが反映 -->
+      <router-view />
+
+      <!-- <v-container>
+        <CreateBook />
+      </v-container> -->
+
+      <!-- <v-container>
         <Book v-for="book in booksList" v-bind:book="book" />
-      </v-container>
+      </v-container> -->
     </v-main>
   </v-app>
 </template>
@@ -44,3 +60,58 @@ export default {
   },
 };
 </script>
+
+<style>
+/* body{
+  font-family: '游ゴシック';
+} */
+.router {
+  background-color: #182651;
+  padding: 20px;
+  margin-bottom: 50px;
+  width: 100%;
+}
+.router button {
+  margin: 15px;
+}
+.router button a {
+  text-decoration: none;
+  color: #182651;
+}
+
+h2 {
+  margin-left: 10px;
+  margin-bottom: 20px;
+  color: #182651;
+}
+
+
+/* ナビ */
+.router{
+  display: flex;
+  justify-content: center;
+}
+
+/* レスポンシブ　Vuetifyのレスポンシブと揃える */
+.inner{
+  width: 100%;
+  padding-left: 10px;
+}
+
+@media (min-width: 960px) {
+  .inner {
+    max-width: 900px;
+  }
+}
+@media (min-width: 1280px) {
+  .inner {
+    max-width: 1200px;
+  }
+}
+@media (min-width: 1920px) {
+  .inner {
+    max-width: 1800px;
+  }
+}
+
+</style>
